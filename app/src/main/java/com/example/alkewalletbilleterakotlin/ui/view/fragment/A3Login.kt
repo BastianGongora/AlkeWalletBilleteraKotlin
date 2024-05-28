@@ -28,6 +28,9 @@ class A3Login : Fragment() {
 
     private lateinit var loginAlkeViewModel: LoginAlkeViewModel
 
+    /**
+     * Infla el diseño de este fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +39,9 @@ class A3Login : Fragment() {
         return binding.root
     }
 
+    /**
+     * Se llama cuando se crea la vista. Configura observadores e inicializa ViewModel.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,18 +57,20 @@ class A3Login : Fragment() {
                 Toast.makeText(context, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
             }
         }
-
+        // Configura el listener para el botón de crear cuenta
         binding.txtCrearCuenta.setOnClickListener {
             findNavController().navigate(R.id.action_a3Login_to_a4SignUp)
         }
-
+        // Configura el listener para el botón de login
         binding.btnLogeo.setOnClickListener {
             val email = binding.txtEmailLogin.text.toString()
             val password = binding.txtPassLogin.text.toString()
             loginAlkeViewModel.login(email, password)
         }
     }
-
+    /**
+     * Se llama cuando se destruye la vista. Limpia la referencia vinculante.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

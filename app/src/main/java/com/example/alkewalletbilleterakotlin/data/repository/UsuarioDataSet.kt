@@ -14,13 +14,20 @@ import com.example.alkewalletbilleterakotlin.data.model.Usuario
  *  password la contraseña del usuario
  *  saldo el saldo de la cuenta del usuario
  */
+
 class UsuarioDataSet : UsuarioRepository {
 
     private val usuarios = mutableListOf(
         Usuario("Yara", "Khalil", "Y.K@gmail.com", "123", 35000.0),
         Usuario("Sara", "Ibrahim", "S.Ibra@gmail.com", "123", 35000.0)
     )
-
+    /**
+     * Gets a user by email and password.
+     *
+     * @param email correo del usuario.
+     * @param password contraseña del usaurio.
+     * @return retorna lo encontrado, si no encuentra anda devuelve nulo.
+     */
     override fun getListaUsuarios(): List<Usuario> = usuarios
 
     override fun getUsuario(email: String, password: String): Usuario? {

@@ -28,7 +28,9 @@ class A5Home : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var loginAlkeViewModel: LoginAlkeViewModel
-
+    /**
+     * Infla el diseño de este fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +38,9 @@ class A5Home : Fragment() {
         _binding = FragmentA5HomeBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    /**
+     * Se llama cuando se crea la vista. Configura observadores e inicializa ViewModel.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,7 +56,9 @@ class A5Home : Fragment() {
             }
         }
     }
-
+    /**
+     * Se llama cuando se destruye la vista. Limpia la referencia vinculante.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
