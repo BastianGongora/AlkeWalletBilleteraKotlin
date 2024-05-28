@@ -10,22 +10,23 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.alkewalletbilleterakotlin.R
+import com.example.alkewalletbilleterakotlin.data.repository.UsuarioDataSet
 import com.example.alkewalletbilleterakotlin.databinding.FragmentA3LoginBinding
 import com.example.alkewalletbilleterakotlin.ui.viewmodel.LoginAlkeViewModel
-
+import com.example.alkewalletbilleterakotlin.ui.viewmodel.LoginAlkeViewModelFactory
 /**
- *  Fragmento- Login
+ *  Fragmento-Login
  *  Autor: Bastián Góngora
- *  Desde: v0.1 26/05/2024
+ *  Desde: v0.1 27/05/2024
  *
- * Fragmento de la pantalla para iniciar sesion
+ * Fragmento de la pantalla para iniciar sesión
  */
 class A3Login : Fragment() {
 
     private var _binding: FragmentA3LoginBinding? = null
     private val binding get() = _binding!!
 
-    private val loginAlkeViewModel: LoginAlkeViewModel by activityViewModels()
+    private lateinit var loginAlkeViewModel: LoginAlkeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,24 +39,27 @@ class A3Login : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val usuarioRepository = UsuarioDataSet()
+        val factory = LoginAlkeViewModelFactory(usuarioRepository)
+        loginAlkeViewModel = ViewModelProvider(requireActivity(), factory).get(LoginAlkeViewModel::class.java)
+
+        // Observa los cambios en usuarioActual una vez
+        loginAlkeViewModel.usuarioActual.observe(viewLifecycleOwner) { usuario ->
+            if (usuario != null) {
+                findNavController().navigate(R.id.action_a3Login_to_a5Home)
+            } else {
+                Toast.makeText(context, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.txtCrearCuenta.setOnClickListener {
             findNavController().navigate(R.id.action_a3Login_to_a4SignUp)
         }
 
-        binding.btnLogeo.setOnClickListener {LoginUserAlkewallet()}
-    }
-    fun LoginUserAlkewallet(){
-
-        val email = binding.txtEmailLogin.text.toString()
-        val password = binding.txtPassLogin.text.toString()
-
-        val usuario = loginAlkeViewModel.login(email, password)
-
-        if (usuario != null) {
+        binding.btnLogeo.setOnClickListener {
+            val email = binding.txtEmailLogin.text.toString()
+            val password = binding.txtPassLogin.text.toString()
             loginAlkeViewModel.login(email, password)
-            findNavController().navigate(R.id.action_a3Login_to_a5Home)
-        } else {
-            Toast.makeText(requireContext(), "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
         }
     }
 

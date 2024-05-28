@@ -70,7 +70,7 @@
             android:fontFamily="@font/jua"
             android:inputType="text"
             android:paddingStart="14sp"
-            android:text="Ingresar Email"
+            android:hint="Ingresar Email"
             android:textColor="#B5B5B5"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="33dp"
@@ -98,18 +98,19 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtPassLogin"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_width="351dp"
+                android:layout_height="47dp"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/txt_blanco"
                 android:fontFamily="@font/jua"
-                android:inputType="textVisiblePassword"
+                android:inputType="text"
                 android:paddingStart="14sp"
-                android:paddingEnd="197sp"
-                android:text="Ingresar tu contraseña"
+                android:hint="Ingresar Contraseña"
                 android:textColor="#B5B5B5"
-                android:textSize="14sp" />
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="239dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 

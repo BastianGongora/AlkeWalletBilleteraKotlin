@@ -23,11 +23,11 @@ class UsuarioDataSet : UsuarioRepository {
 
     override fun getListaUsuarios(): List<Usuario> = usuarios
 
-    override fun addUsuario(usuario: Usuario) {
-        usuarios.add(usuario)
-    }
-
     override fun getUsuario(email: String, password: String): Usuario? {
         return usuarios.find { it.email == email && it.password == password }
+    }
+
+    override fun addUsuario(usuario: Usuario) {
+        usuarios.add(usuario)
     }
 }
