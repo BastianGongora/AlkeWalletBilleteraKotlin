@@ -7,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.alkewalletbilleterakotlin.R
+import com.example.alkewalletbilleterakotlin.data.repository.TransferenciaDataSet
 import com.example.alkewalletbilleterakotlin.data.repository.UsuarioDataSet
 import com.example.alkewalletbilleterakotlin.databinding.FragmentA5HomeBinding
+import com.example.alkewalletbilleterakotlin.ui.adapter.TransferenciaAdapter
 import com.example.alkewalletbilleterakotlin.ui.viewmodel.LoginAlkeViewModel
 import com.example.alkewalletbilleterakotlin.ui.viewmodel.LoginAlkeViewModelFactory
+import com.example.alkewalletbilleterakotlin.ui.viewmodel.TransferenciaViewModel
+import com.example.alkewalletbilleterakotlin.ui.viewmodel.TransferenciaViewModelFactory
 
 
 /**
@@ -24,6 +29,7 @@ import com.example.alkewalletbilleterakotlin.ui.viewmodel.LoginAlkeViewModelFact
 
 class A5Home : Fragment() {
 
+    private lateinit var transferenciaViewModel: TransferenciaViewModel
     private var _binding: FragmentA5HomeBinding? = null
     private val binding get() = _binding!!
 
@@ -55,6 +61,22 @@ class A5Home : Fragment() {
                 binding.txtbalance.text = "$${usuario.saldo}"
             }
         }
+
+        val transferenciaRepository = TransferenciaDataSet()
+        val factoryTransferencia = TransferenciaViewModelFactory(transferenciaRepository)
+        transferenciaViewModel = ViewModelProvider(this, factoryTransferencia).get(TransferenciaViewModel::class.java)
+
+        val recyclerView = binding.recyclerViewTransferencias
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        transferenciaViewModel.transferencias.observe(viewLifecycleOwner) { transferencias ->
+            recyclerView.adapter = TransferenciaAdapter(transferencias)
+        }
+
+
+
+
+
     }
     /**
      * Se llama cuando se destruye la vista. Limpia la referencia vinculante.
